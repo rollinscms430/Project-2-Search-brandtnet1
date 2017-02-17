@@ -10,3 +10,6 @@ for word in file:
         anagram_dictionary[tuple(word_list)] = temp_list
             
     anagram_dictionary[tuple(word_list)].append([word])
+
+
+#print anagram_dictionary

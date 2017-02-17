@@ -27,5 +27,5 @@ def word_ladder(start, end):
                         queue.append(new)
                         word_list[new] = word_list[cur] + ' ' + new
 
-print word_ladder('dog', 'cat')
-print word_ladder('snakes', 'brains')
+#print word_ladder('dog', 'cat')
+#print word_ladder('snakes', 'brains')
