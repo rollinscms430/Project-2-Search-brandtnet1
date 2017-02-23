@@ -1,7 +1,10 @@
+"""
+IDDFS - Iterative Deepening Depth First Search
+
+Search up until desired depth, depth = length of word.
+"""
 def IDDFS(start, length, matrix):
-    visited = set()
     goal = set()
-    visited.clear()
     goal.clear()
     file = open('words.txt')
     word_list = {}
@@ -14,31 +17,48 @@ def IDDFS(start, length, matrix):
                 if word[:i] not in prefix_list:
                     prefix_list[word[:i]] = 0
                     
-    start_node = [matrix[start/4][start%4], start, visited]
-                    
+    cords = set()
+    cords.add((start/4,start%4))
+    start_node = [matrix[start/4][start%4], start, cords]
+
     for i in range(1, length):  # Depth first search until you hit the depth of current length or max length of words wanted
-        DFS(start_node, i, word_list, prefix_list, visited, goal)
+        DFS(start_node, i, word_list, prefix_list, goal)
     return goal
 
-def DFS(node, max_depth, word_list, prefix_list, visited, goal):
+"""
+DFS- Depth First Search
+
+Following logic from IDDFS, only search up until a specific depth at any given time.
+"""
+def DFS(node, max_depth, word_list, prefix_list, goal):
     if max_depth <= 0:
         return goal
 
     x = node[1] / int(4)
     y = node[1] % int(4)
+    node[2].add((x,y))
     
-    visited.add((x, y))     # Need to fix visited!!!!!!
-
+    visited = set()
+    
+    for i in node[2]:       # Look through all cords been through so far, if cords match with letters then save them otherwise get rid of them.
+        if matrix[i[0]][i[1]] in node[0]:
+            visited.add(i)
+            
+    node[2] = visited 
+    
     for next_square in possible_next(x, y):
-        if next_square not in visited:
+        if next_square not in node[2]:
             prefix = node[0] + matrix[next_square[0]][next_square[1]]   # Create the prefix for next node to compare to word_list
             if prefix in prefix_list:
-                next = [prefix, (next_square[0] * 4 + next_square[1] + 4)]
-                DFS(next, max_depth - 1, word_list, prefix_list, visited, goal) # DFS from updated prefix and depth 
+                next = [prefix, (next_square[0] * 3 + next_square[1] + next_square[0]), visited]
+                DFS(next, max_depth - 1, word_list, prefix_list, goal) # DFS from updated prefix and depth
                 if next[0] in word_list:        # word is a goal state, add to goal
                     goal.add(next[0])
 
-def possible_next(x, y):  # Returns a list of all the possible grid squares you can go to next
+"""
+Return a list of all possible next grid squares
+"""
+def possible_next(x, y):
     neighbors = (       
         (x - 1, y),
         (x, y - 1),
@@ -62,3 +82,4 @@ matrix = [
 ]  
 
 print scan_whole_matrix(4, matrix)
+# print IDDFS(7, 4, matrix)
