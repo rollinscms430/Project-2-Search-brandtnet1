@@ -70,7 +70,7 @@ def possible_next(x, y):
         (x + 1, y + 1))
     return [p for p in neighbors if 0 <= p[0] < 4 and 0 <= p[1] < 4]
     
-def scan_whole_matrix(length, matrix): # Given a length of word to find, this method searches for that length starting at all indexes.
+def scan_whole_matrix(matrix): # Given a length of word to find, this method searches for that length starting at all indexes.
     count = 0
     for i in range(0,16):
         dict = []
@@ -90,5 +90,5 @@ matrix = [
 ['h', 'm', 'i', 'a']
 ]  
 
-scan_whole_matrix(4, matrix)
+scan_whole_matrix(matrix)
 # print IDDFS(7, 4, matrix)
