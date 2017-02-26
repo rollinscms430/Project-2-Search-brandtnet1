@@ -72,7 +72,14 @@ def possible_next(x, y):
     
 def scan_whole_matrix(length, matrix): # Given a length of word to find, this method searches for that length starting at all indexes.
     for i in range(0,16):
-        print str(length) + ' letter words starting with the letter ' + str(matrix[i/4][i%4]) + ': ' + str(IDDFS(i, length, matrix))
+        dict = []
+        
+        for j in range(2, 10):
+            temp = IDDFS(i, j, matrix)
+            if len(temp) > 0:
+                dict.append(temp)    
+            
+        print 'Words starting with the letter ' + str(matrix[i/4][i%4]) + ': ' + ''.join(str(dict) + '\n')
         
 matrix = [
 ['u', 'n', 't', 'h'],
@@ -81,5 +88,5 @@ matrix = [
 ['h', 'm', 'i', 'a']
 ]  
 
-print scan_whole_matrix(4, matrix)
+scan_whole_matrix(4, matrix)
 # print IDDFS(7, 4, matrix)

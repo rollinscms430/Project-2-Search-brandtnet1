@@ -7,6 +7,8 @@ def word_ladder(start, end):
             word.replace('\n', '')
             word.replace(' ', '')
             word_list[word[:len(start)]] = start  # Stores all words with same length as start word
+    
+    print word_list
 
     queue = [start]
     alphabet = 'abcdefghijklmnopqrstuvwxyz'       # Alphabet to replace a single letter of each word
