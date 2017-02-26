@@ -71,16 +71,18 @@ def possible_next(x, y):
     return [p for p in neighbors if 0 <= p[0] < 4 and 0 <= p[1] < 4]
     
 def scan_whole_matrix(length, matrix): # Given a length of word to find, this method searches for that length starting at all indexes.
+    count = 0
     for i in range(0,16):
         dict = []
         
-        for j in range(2, 10):
+        for j in range(3, 16): # 3 letter words up to max of 16 letter words
             temp = IDDFS(i, j, matrix)
-            if len(temp) > 0:
-                dict.append(temp)    
+            for item in temp:
+                dict.append(item)  
+                count += 1
             
-        print 'Words starting with the letter ' + str(matrix[i/4][i%4]) + ': ' + ''.join(str(dict) + '\n')
-        
+        print 'Words starting with the letter ' + str(matrix[i/4][i%4]) + ': ' + str(dict) + '\n'
+
 matrix = [
 ['u', 'n', 't', 'h'],
 ['g', 'a', 'e', 's'],
