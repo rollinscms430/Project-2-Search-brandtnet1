@@ -75,11 +75,11 @@ def scan_whole_matrix(matrix): # Given a length of word to find, this method sea
     for i in range(0,16):
         dict = []
         
-        for j in range(3, 16): # 3 letter words up to max of 16 letter words
+        for j in range(2, 16): # 3 letter words up to max of 16 letter words
             temp = IDDFS(i, j, matrix)
             for item in temp:
                 dict.append(item)  
-                count += 1
+                count += 1   # Number of words, just a test
             
         print 'Words starting with the letter ' + str(matrix[i/4][i%4]) + ': ' + str(dict) + '\n'
 
